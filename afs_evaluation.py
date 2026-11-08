@@ -297,8 +297,8 @@ def verdict_core() -> tuple[str, str]:
     e = {m: enum_stats(m) for m in (5, 6, 7)}
     g8 = method_gaps(8)
     return "info", (f"Die Dominanz gilt auf beiden Ebenen (Haltefolgen: {d['stops_ok']} von {d['stops_n']} Instanzen, Auftragsfolgen: {d['requests_ok']} von {d['requests_n']}). Auf der Halteebene ist aber fast jede Folge unzulässig: "
-                    f"zerlegbar sind {pct(f[4]['p_limit'], 2)} der zufälligen Haltefolgen bei 4 Aufträgen und {pct(f[6]['p_limit'], 2)} bei 6. Auf der Auftragsebene ist jede Folge zulässig, und das Optimum ist selten wie in Stück 1 "
-                    f"({pct(e[5]['share_median'])} der Folgen bei 5, {pct(e[7]['share_median'])} bei 7 Aufträgen). Bei 8 Aufträgen liegt das beste von 100 Auftragsfolgen + Split {pct(g8['rand100']['mean'])} über dem Optimum, "
+                    f"zerlegbar sind {pct(f[4]['p_limit'], 2)} der zufälligen Haltefolgen bei 4 Aufträgen und {pct(f[6]['p_limit'], 2)} bei 6. Auf der Auftragsebene ist jede Folge zulässig; das Optimum wird mit der Größe selten "
+                    f"(Median {pct(e[5]['share_median'])} der Folgen bei 5, {pct(e[7]['share_median'])} bei 7 Aufträgen). Bei 8 Aufträgen liegt das beste von 100 Auftragsfolgen + Split {pct(g8['rand100']['mean'])} über dem Optimum, "
                     f"Einfügen in einer Reihenfolge {pct(g8['ins1']['mean'])}.")
 
 

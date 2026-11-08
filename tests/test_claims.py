@@ -44,6 +44,8 @@ def test_enumeration_table():
         row = (f"| {m} | {rows[0]['orders']} | {p(st.median(shares))} | {p(min(shares))} / {p(max(shares))} | {p(st.mean(r['gap_mean'] for r in rows))} | {p(st.median(r['gap_median'] for r in rows))} |")
         assert row in README, row
     assert [r["orders"] for r in B["enum"] if r["i"] == 0] == [24, 120, 720, 5040]
+    medians = " / ".join(p(st.median(100.0 * r["optimal"] / r["orders"] for r in B["enum"] if r["m"] == m)).replace(" %", "") for m in C.BAND_ENUM_SIZES)
+    assert f"das Optimum wird mit der Größe selten (Median {medians} % der Folgen bei 4 / 5 / 6 / 7 Aufträgen)" in README
 
 
 def test_method_tables():
@@ -61,6 +63,10 @@ def test_method_tables():
     g1 = [gap(r["ins1"], r["opt"]) for r in rows8]
     text = f"das beste von 100 zufälligen Auftragsfolgen + Split liegt {p(st.mean(g100))} über dem Optimum und trifft es in {sum(1 for x in g100 if x < 1e-6)} von 20 Instanzen"
     assert text in README and f"Einfügen in einer Reihenfolge liegt bei 8 Aufträgen {p(st.mean(g1))} über dem Optimum" in README
+    r1 = [gap(r["rand1"], r["opt"]) for r in rows8]
+    nn = [gap(r["nn"], r["opt"]) for r in rows8]
+    assert st.mean(r1) > st.mean(g1) and st.mean(r1) > st.mean(nn)
+    assert f"schlechter als beide ({p(st.mean(r1))} gegen {p(st.mean(g1))} und {p(st.mean(nn))})" in README
 
 
 def test_position_table():

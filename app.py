@@ -285,7 +285,7 @@ for k in C.BAND_POSITION_SIZES:
     s_ = position_stats(k)
     rows.append(f"| {k} | {s_['stops']} | {de(s_['pairs'], 1)} | {de(s_['capacity_ok'], 1)} | {pct(s_['share'], 0)} |")
 st.markdown("\n".join(rows))
-st.caption(f"Bänder: {C.BAND_POSITION_ROUTES} zufällige zulässige Routen je k (Zufallsablauf unter Kapazität {C.BAND_Q}), Mittel je Route. Die Zahl der Positionspaare wächst quadratisch mit der Zahl der Halte; ohne die Paarbedingung gäbe es 2k + 1 Positionen je Halt.")
+st.caption(f"Bänder: {C.BAND_POSITION_ROUTES} zufällig gebaute kapazitätszulässige Routen je k (Zufallsablauf unter Kapazität {C.BAND_Q}, nicht gleichverteilt über alle Routen, Streckengrenze nicht geprüft), Mittel je Route. Die Zahl der Positionspaare wächst quadratisch mit der Zahl der Halte; ohne die Paarbedingung gäbe es 2k + 1 Positionen je Halt.")
 
 st.markdown("---")
 

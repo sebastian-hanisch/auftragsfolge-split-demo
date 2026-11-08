@@ -38,7 +38,7 @@ Ein Depot, m Aufträge; Auftrag i hat einen Abholpunkt, einen Lieferpunkt und di
 
 Ein Chromosom aus Halten braucht Reparatur; der Split allein findet kaum einen Weg. Von den 40320 Haltefolgen von 4 Aufträgen waren in den 5 Instanzen zusammen nur 298 zerlegbar.
 
-**3. Auf der Auftragsebene ist jede Folge zulässig, und das Optimum ist selten wie in Stück 1.** Alle Auftragsfolgen je Instanz (12 Instanzen je Größe):
+**3. Auf der Auftragsebene ist jede Folge zulässig; das Optimum wird mit der Größe selten (Median 50,0 / 40,0 / 11,7 / 3,8 % der Folgen bei 4 / 5 / 6 / 7 Aufträgen).** Alle Auftragsfolgen je Instanz (12 Instanzen je Größe):
 
 | Aufträge m | Folgen | optimale Folgen: Median | kleinster / größter Anteil | Lücke einer zufälligen Folge: Mittel | Median |
 |---|---|---|---|---|---|
@@ -85,9 +85,9 @@ Ein Chromosom aus Halten braucht Reparatur; der Split allein findet kaum einen W
 | Eine Auftragsfolge + Split | 25,0 % | 21,8 % | 62,7 % | 1 von 20 |
 | Bestes von 100 Auftragsfolgen + Split | 0,1 % | 0,0 % | 1,2 % | 16 von 20 |
 
-Einfügen in einer Reihenfolge liegt bei 8 Aufträgen 11,1 % über dem Optimum, das beste von 10 Reihenfolgen 0,6 %; der nächste Nachbar + Split 15,1 %; **das beste von 100 zufälligen Auftragsfolgen + Split liegt 0,1 % über dem Optimum und trifft es in 16 von 20 Instanzen**. Die Folge mit Split schlägt das einmalige Einfügen deutlich und ist mit zehn Einfügeläufen gleichauf.
+Einfügen in einer Reihenfolge liegt bei 8 Aufträgen 11,1 % über dem Optimum, das beste von 10 Reihenfolgen 0,6 %; der nächste Nachbar + Split 15,1 %; **das beste von 100 zufälligen Auftragsfolgen + Split liegt 0,1 % über dem Optimum und trifft es in 16 von 20 Instanzen**. Das beste von 100 zufälligen Auftragsfolgen + Split (mit der exakten Routentabelle für den Blockpreis) schlägt das einmalige Einfügen deutlich und liegt etwa gleichauf mit dem besten von 10 Einfügeläufen (beide Verfahren mit unterschiedlichem Aufwand); eine einzelne Auftragsfolge + Split ist dagegen schlechter als das einmalige Einfügen.
 
-**5. Die Paarbedingung verkleinert die Einfügepositionen mäßig.** Einfügen eines Auftrags in eine zufällige zulässige Route mit k Aufträgen (150 Routen je k):
+**5. Die Kapazität verkleinert die Einfügepositionen mäßig (51 % der Positionspaare bleiben bei 5 Aufträgen in einer zufällig gebauten Route).** Einfügen eines Auftrags in eine zufällig gebaute, kapazitätszulässige Route mit k Aufträgen (Zufallsablauf unter der Kapazität, nicht gleichverteilt über alle Routen, Streckengrenze nicht geprüft; 150 Routen je k):
 
 | Aufträge in der Route k | Halte | Positionspaare (a ≤ b) | davon kapazitätszulässig | Anteil |
 |---|---|---|---|---|
@@ -97,7 +97,7 @@ Einfügen in einer Reihenfolge liegt bei 8 Aufträgen 11,1 % über dem Optimum, 
 | 4 | 8 | 45,0 | 28,2 | 63 % |
 | 5 | 10 | 66,0 | 33,6 | 51 % |
 
-Die Zahl der Positionspaare wächst quadratisch mit der Zahl der Halte; kapazitätszulässig bleibt bei 5 Aufträgen noch die Hälfte.
+Die Zahl der Positionspaare wächst quadratisch mit der Zahl der Halte (die Bedingung a ≤ b steckt schon in diesen Zahlen); kapazitätszulässig bleibt bei 5 Aufträgen noch gut die Hälfte.
 
 **6. Ohne bindende Streckengrenze ist die Frage leer.** Bei einer Streckengrenze von 100 % der kürzesten Gesamtroute ist eine Route durch alle Aufträge optimal, und 5040 von 5040 Auftragsfolgen (12 Instanzen mit 5 und 6 Aufträgen) liefern das Optimum. Die erste Fassung der Messung ohne Streckengrenze lag genau hier: jede Folge optimal, das Einfügen dagegen nicht.
 
@@ -116,7 +116,7 @@ Die Zahl der Positionspaare wächst quadratisch mit der Zahl der Halte; kapazit�
 ## Befunde und Korrekturen gegenüber dem Plan
 
 - **Streckengrenze in der Zulässigkeitsmessung:** Die Phase 0 zählte die zulässigen Haltefolgen ohne Streckengrenze auf einer Instanz (25,3 / 12,8 / 6,2 / 2,6 / 1,1 / 0,07 % bei 2, 3, 4, 5, 6, 8 Aufträgen). Die Bänder zählen über 20 Instanzen je Größe mit und ohne Streckengrenze: ohne 25,1 % / 10,7 % / 4,0 % / 1,2 % / 0,41 % / 0,01 %, mit 8,2 % / 1,1 % / 0,12 % / 0,02 % / 0,01 % / 0,00 %. Die Aussage bleibt, nur ist sie mit der Streckengrenze (dem Modell dieser Demo) noch schärfer.
-- **Verfahren bei 8 Aufträgen:** Phase 0 hatte 1,1 % (15 von 20) für das beste von 100 Auftragsfolgen und 1,4 % für das beste von 10 Einfügereihenfolgen; die Bänder mit neuen Seeds und eigener Seed-Vergabe geben 0,1 % (16 von 20) und 0,6 %. Die Rangfolge (Folge mit Split ≥ Einfügen ≥ nächster Nachbar) ist dieselbe.
+- **Verfahren bei 8 Aufträgen:** Phase 0 hatte 1,1 % (15 von 20) für das beste von 100 Auftragsfolgen und 1,4 % für das beste von 10 Einfügereihenfolgen; die Bänder mit neuen Seeds und eigener Seed-Vergabe geben 0,1 % (16 von 20) und 0,6 %. Die Rangfolge (bestes von 100 Auftragsfolgen + Split ≥ Einfügen ≥ nächster Nachbar) ist dieselbe; eine einzelne Auftragsfolge + Split ist schlechter als beide (25,0 % gegen 11,1 % und 15,1 %).
 - **Einfügepositionen:** Phase 0 nannte 100 / 89 / 74 / 64 / 50 % kapazitätszulässig (300 Routen), die Bänder mit 150 Routen geben 100 % / 88 % / 72 % / 63 % / 51 %; die Positionspaare (6 / 15 / 28 / 45 / 66) sind unverändert.
 - **Live bis 7 statt 8 Aufträge:** der exakte DP rechnet auch 8 Aufträge in unter einer Sekunde, die Aufzählung aller Folgen (8! = 40 320 Splits) und die Verfahren-Tabelle sind aber bis 7 live; die Bänder gehen bis 8.
 - **Lehren:** (1) Das Modell muss die Zerlegung erzwingen: ohne Streckengrenze ist jede Folge optimal. (2) Auf Auftragsebene braucht die Folge den Blockpreis (beste Route der Menge), nicht feste Halte. (3) Die Handinstanz mit vier Achsen macht die Zerlegung an der Streckengrenze von Hand nachrechenbar.
